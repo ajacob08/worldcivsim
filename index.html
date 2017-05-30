@@ -14,6 +14,8 @@ var leader;
 
 function init()
 {
+	updateButtonText("Test", "testt", "testtt");
+
 	leader = getPerson();
 	leader[3] = 50;
 	leader = setQualities(leader);
@@ -24,7 +26,10 @@ function init()
 	for (var i = 0; i < 3; i++)
 	{
 		council[i] = getPerson();
-		alert(council[i][0] + " has joined your council.");
+		a(council[i][0] + " has joined your council.");
+
+		if (council[i][1] <= 14)
+			a("A prodigy has joined your council!");
 		updateTables();
 	}
 }
@@ -158,11 +163,24 @@ function updateLeaderTable()
 	myTable.rows[1].cells[2].innerHTML = polAlignment;
 }
 
+function updateButtonText(b1, b2, b3)
+{
+	document.getElementById("button1").innerText= b1;
+	document.getElementById("button2").innerText= b2;
+	document.getElementById("button3").innerText= b3;
+}
+
+//a is for alert
+function a(updateText)
+{
+	document.getElementById("notifications").innerHTML += "<p>" + updateText + "</p>";   
+}
+
 		</script>
 	</head>
 	
 	<body onload="init()">
-		<h2>Your Stats:</h2><br>
+		<h3>Your Stats:</h3>
 		<table id="leader_table">
 			<tr>
 				<th>Ruler Name:</th>
@@ -177,8 +195,7 @@ function updateLeaderTable()
 				<td></td>
 			</tr>
 		</table>
-		<br>
-		<h2>Your Council</h2><br>
+		<h3>Your Council:</h3>
 		<table id="council_table">
 			<tr>
 				<th>Council Member:</th>
@@ -205,6 +222,10 @@ function updateLeaderTable()
 				<td></td>
 			</tr>
 		</table>
+		<br>
 		<div id="notifications"></div>
+			<button id="button1" ></button>
+			<button id="button2" ></button>
+			<button id="button3" ></button>
 	</body>
 </html>

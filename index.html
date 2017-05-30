@@ -10,17 +10,12 @@
 		<script>
 var blankPerson = ["None", 0, "they", -1, "None"];
 var council = [blankPerson, blankPerson, blankPerson];
-var leader;
+var leader = blankPerson;
+var clicked = 0;
 
 function init()
 {
-	updateButtonText("Test", "testt", "testtt");
-
-	leader = getPerson();
-	leader[3] = 50;
-	leader = setQualities(leader);
-
-	updateTables();
+	updateLeader();
 
 	//Populates initial council
 	for (var i = 0; i < 3; i++)
@@ -32,6 +27,18 @@ function init()
 			a("A prodigy has joined your council!");
 		updateTables();
 	}
+}
+
+function updateLeader()
+{
+	leader = getPerson();
+	leader[3] = 50;
+	leader[2] = -1;
+	leader = setQualities(leader);
+
+
+	a("You have spawned as monarch <b>" + leader[0] + "</b>.  What is your gender?");
+	updateButtonText("Male", "Female", "Non-Binary");
 }
 
 function getName()
@@ -170,6 +177,21 @@ function updateButtonText(b1, b2, b3)
 	document.getElementById("button3").innerText= b3;
 }
 
+function buttonClick(button)
+{
+	if (leader[2] == -1)
+	{
+		console.log(button);
+		if (button == 1)
+			leader[2] = "he";
+		else if (button == 2)
+			leader[2] = "she";
+		else
+			leader[2] = "they";
+	}
+
+	updateTables();
+}
 //a is for alert
 function a(updateText)
 {
@@ -224,8 +246,8 @@ function a(updateText)
 		</table>
 		<br>
 		<div id="notifications"></div>
-			<button id="button1" ></button>
-			<button id="button2" ></button>
-			<button id="button3" ></button>
+			<button id="button1" onclick="buttonClick(1)" ></button>
+			<button id="button2" onclick="buttonClick(2)"></button>
+			<button id="button3" onclick="buttonClick(3)"></button>
 	</body>
 </html>
